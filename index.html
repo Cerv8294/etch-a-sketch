@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Project: Etch-A-Sketch</title>
+    <link href="./stylesheet/stylesheet.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script>
+      const container = document.querySelector('#container');
+      let gridMap = [];
+      let row = 0;
+      let col = 0;
+      let i = 0;
+      let gridSize = 32;
+      let gridHeight = 800;
+      let gridWidth = 800;
+
+      container.style.height = gridHeight + "px";
+      container.style.width = gridWidth + "px";
+
+      for (row; row < gridSize; row++) {
+        for (col; col < gridSize; col++) {
+          gridMap[i] = document.createElement('div');
+          gridMap[i].classList.add('blocks');
+          gridMap[i].style.height = (gridHeight / gridSize) + "px";
+          gridMap[i].style.width = (gridWidth / gridSize) + "px";
+          gridMap[i].addEventListener("mouseover", function(e) {
+            e.target.style.backgroundColor = "blue";
+          })
+
+
+          container.appendChild(gridMap[i]);
+          i++;
+        }
+        col = 0;
+      }
+
+    </script>
+  </body>
+
+</html>
