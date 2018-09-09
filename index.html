@@ -9,35 +9,55 @@
   </head>
 
   <body>
+    <button id="grid">Create New Grid</button>
     <div id="container"></div>
+
     <script>
       const container = document.querySelector('#container');
+      let btn = document.querySelector('#grid');
       let gridMap = [];
       let row = 0;
       let col = 0;
       let i = 0;
-      let gridSize = 32;
+      let gridSize = 16;
       let gridHeight = 800;
       let gridWidth = 800;
 
       container.style.height = gridHeight + "px";
       container.style.width = gridWidth + "px";
 
-      for (row; row < gridSize; row++) {
-        for (col; col < gridSize; col++) {
-          gridMap[i] = document.createElement('div');
-          gridMap[i].classList.add('blocks');
-          gridMap[i].style.height = (gridHeight / gridSize) + "px";
-          gridMap[i].style.width = (gridWidth / gridSize) + "px";
-          gridMap[i].addEventListener("mouseover", function(e) {
-            e.target.style.backgroundColor = "blue";
-          })
+      gridSketch(row, col, gridSize);
 
-
-          container.appendChild(gridMap[i]);
-          i++;
-        }
+      btn.addEventListener("click", function() {
+        container.innerHTML = "";
+        row = 0;
         col = 0;
+        i = 0;
+        gridSize = prompt("Choose the size of the grid");
+        gridSketch(row, col, +gridSize);
+      })
+
+
+
+      function gridSketch (row, col, gridSize) {
+
+        for (row; row < gridSize; row++) {
+
+          for (col; col < gridSize; col++) {
+
+            gridMap[i] = document.createElement('div');
+            gridMap[i].classList.add('blocks');
+            gridMap[i].style.height = (gridHeight / gridSize) + "px";
+            gridMap[i].style.width = (gridWidth / gridSize) + "px";
+            gridMap[i].addEventListener("mouseover", function(e) {
+              e.target.style.backgroundColor = "blue";
+            })
+
+            container.appendChild(gridMap[i]);
+            i++;
+          }
+          col = 0;
+        }
       }
 
     </script>
