@@ -9,12 +9,19 @@
   </head>
 
   <body>
+    <button id="clr">Clear</button>
     <button id="grid">Create New Grid</button>
+    <button id="mysteryColor">Random Color</button>
+    <button id="opac">Gradual</button>
+    <div>Etch-A-Sketch</div>
     <div id="container"></div>
 
     <script>
       const container = document.querySelector('#container');
-      let btn = document.querySelector('#grid');
+      const colorPick = document.querySelector('#mysteryColor');
+      const clr = document.querySelector('#clr');
+      const oPac = document.querySelector('#opac');
+      const btn = document.querySelector('#grid');
       let gridMap = [];
       let row = 0;
       let col = 0;
@@ -22,39 +29,86 @@
       let gridSize = 16;
       let gridHeight = 800;
       let gridWidth = 800;
+      let x = 0;
+      let y = 0;
+      let z = 0;
+      let val = 0;
+      let solid = true;
 
       container.style.height = gridHeight + "px";
       container.style.width = gridWidth + "px";
 
       gridSketch(row, col, gridSize);
 
+      clr.addEventListener("click", function() {
+        container.innerHTML = "";
+        gridSketch(row, col, gridSize);
+      })
+
       btn.addEventListener("click", function() {
         container.innerHTML = "";
         row = 0;
         col = 0;
         i = 0;
+        x = 0;
+        y = 0;
+        z = 0;
         gridSize = prompt("Choose the size of the grid");
         gridSketch(row, col, +gridSize);
       })
 
+      colorPick.addEventListener("click", function() {
+        container.innerHTML = "";
+        val = 1;
+        gridSketch(row, col, +gridSize);
 
+      })
+
+      oPac.addEventListener("click", function() {
+        container.innerHTML = "";
+        val = 2;
+        x = 0;
+        y = 0;
+        z = 0;
+        gridSketch(row, col, +gridSize);
+      })
 
       function gridSketch (row, col, gridSize) {
-
         for (row; row < gridSize; row++) {
 
           for (col; col < gridSize; col++) {
-
             gridMap[i] = document.createElement('div');
             gridMap[i].classList.add('blocks');
             gridMap[i].style.height = (gridHeight / gridSize) + "px";
             gridMap[i].style.width = (gridWidth / gridSize) + "px";
-            gridMap[i].addEventListener("mouseover", function(e) {
-              e.target.style.backgroundColor = "blue";
-            })
 
+            if (val === 1) {
+              gridMap[i].addEventListener("mouseover", function(e) {
+                x = Math.floor(Math.random() * 256);
+                y = Math.floor(Math.random() * 256);
+                z = Math.floor(Math.random() * 256);
+                e.target.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
+              })
+            }
+            else if (val === 2) {
+              gridMap[i].addEventListener("mouseover", function(e) {
+                  let shade = +e.target.style.opacity;
+                  if (shade < 1) {
+                    shade += 0.1;
+                  }
+                  e.target.style.opacity = shade;
+
+                e.target.style.backgroundColor = "rgb("+ x +","+ y +", "+ z +")";
+              })
+            }
+            else {
+              gridMap[i].addEventListener("mouseover", function(e) {
+                e.target.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
+              })
+            }
             container.appendChild(gridMap[i]);
             i++;
+
           }
           col = 0;
         }
