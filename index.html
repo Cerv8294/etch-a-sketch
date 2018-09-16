@@ -64,19 +64,14 @@
       })
 
       colorPick.addEventListener("click", function() {
-        container.innerHTML = "";
         val = 1;
-        gridSketch(row, col, +gridSize);
-
       })
 
       oPac.addEventListener("click", function() {
-        container.innerHTML = "";
         val = 2;
         x = 0;
         y = 0;
         z = 0;
-        gridSketch(row, col, +gridSize);
       })
 
       function gridSketch (row, col, gridSize) {
@@ -87,36 +82,37 @@
             gridMap[i].classList.add('blocks');
             gridMap[i].style.height = (gridHeight / gridSize) + "px";
             gridMap[i].style.width = (gridWidth / gridSize) + "px";
-
-            if (val === 1) {
-              gridMap[i].addEventListener("mouseover", function(e) {
-                x = Math.floor(Math.random() * 256);
-                y = Math.floor(Math.random() * 256);
-                z = Math.floor(Math.random() * 256);
-                e.target.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
-              })
-            }
-            else if (val === 2) {
-              gridMap[i].addEventListener("mouseover", function(e) {
-                  let shade = +e.target.style.opacity;
-                  if (shade < 1) {
-                    shade += 0.1;
-                  }
-                  e.target.style.opacity = shade;
-
-                e.target.style.backgroundColor = "rgb("+ x +","+ y +", "+ z +")";
-              })
-            }
-            else {
-              gridMap[i].addEventListener("mouseover", function(e) {
-                e.target.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
-              })
-            }
+            gridMap[i].addEventListener("mouseover", gridOptions);
             container.appendChild(gridMap[i]);
             i++;
-
           }
+
           col = 0;
+
+        }
+      }
+
+      function gridOptions() {
+        if (val == 1) {
+          x = Math.floor(Math.random() * 256);
+          y = Math.floor(Math.random() * 256);
+          z = Math.floor(Math.random() * 256);
+          this.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
+        }
+
+        else if (val == 2) {
+          let shade = +this.style.opacity;
+
+          if (shade < 1) {
+            shade += 0.1;
+          }
+
+          this.style.opacity = shade;
+          this.style.backgroundColor = "rgb("+ x +","+ y +", "+ z +")";
+        }
+
+        else {
+          this.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
         }
       }
 
