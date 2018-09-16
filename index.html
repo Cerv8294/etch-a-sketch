@@ -9,12 +9,18 @@
   </head>
 
   <body>
-    <button id="clr">Clear</button>
-    <button id="grid">Create New Grid</button>
-    <button id="mysteryColor">Random Color</button>
-    <button id="opac">Gradual</button>
-    <div>Etch-A-Sketch</div>
+    <center>
+      <h1>Etch-A-Sketch</h1>
+    </center>
+
     <div id="container"></div>
+    <div id="options">
+      <button id="clr" class="controls">Clear</button>
+      <button id="grid" class="controls">Create New Grid</button>
+      <button id="mysteryColor" class="controls">Random Color</button>
+      <button id="opac" class="controls">Gradual Paint</button>
+      <div class="Rbtn controls"></div>
+    </div>
 
     <script>
       const container = document.querySelector('#container');
