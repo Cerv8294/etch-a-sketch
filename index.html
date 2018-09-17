@@ -19,7 +19,7 @@
       <button id="grid" class="controls">Create New Grid</button>
       <button id="mysteryColor" class="controls">Random Color</button>
       <button id="opac" class="controls">Gradual Paint</button>
-      <div class="Rbtn controls"></div>
+      <button class="Rbtn controls"></button>
     </div>
 
     <script>
@@ -28,6 +28,7 @@
       const clr = document.querySelector('#clr');
       const oPac = document.querySelector('#opac');
       const btn = document.querySelector('#grid');
+      const solid = document.querySelector('.Rbtn');
       let gridMap = [];
       let row = 0;
       let col = 0;
@@ -38,8 +39,7 @@
       let x = 0;
       let y = 0;
       let z = 0;
-      let val = 0;
-      let solid = true;
+      let val;
 
       container.style.height = gridHeight + "px";
       container.style.width = gridWidth + "px";
@@ -64,11 +64,18 @@
       })
 
       colorPick.addEventListener("click", function() {
-        val = 1;
+        val = "randomColor";
+      })
+
+      solid.addEventListener("click", function() {
+        val = "solid";
+        x = 0;
+        y = 0;
+        z = 0;
       })
 
       oPac.addEventListener("click", function() {
-        val = 2;
+        val = "gradiant";
         x = 0;
         y = 0;
         z = 0;
@@ -93,14 +100,14 @@
       }
 
       function gridOptions() {
-        if (val == 1) {
+        if (val == "randomColor") {
           x = Math.floor(Math.random() * 256);
           y = Math.floor(Math.random() * 256);
           z = Math.floor(Math.random() * 256);
           this.style.backgroundColor = "rgb("+ x +","+ y +","+ z +")";
         }
 
-        else if (val == 2) {
+        else if (val == "gradiant") {
           let shade = +this.style.opacity;
 
           if (shade < 1) {
